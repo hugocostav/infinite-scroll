@@ -29,7 +29,7 @@ function setAttributes(element, attributes) {
 
 /* Create elements for links and photos, add to DOM */
 function displayPhotos() {
-  imageLoaded = 0;
+  imagesLoaded = 0;
   totalImages = photosArray.length;
   // Run function for each object in photosArray
   photosArray.forEach((photo) => {
@@ -62,3 +62,17 @@ async function getPhotos() {
     displayPhotos();
   } catch (error) {}
 }
+
+/* Check to see if scrolling near bottom fo page, load more photos */
+window.addEventListener("scroll", () => {
+  if (
+    window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&
+    ready
+  ) {
+    ready = false;
+    getPhotos();
+  }
+});
+
+/* On load */
+getPhotos();
